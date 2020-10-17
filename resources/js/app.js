@@ -4,6 +4,12 @@ window.Vue = require('vue');
 import { BootstrapVue } from 'bootstrap-vue'
 import store from './store'
 
+import VueSweetalert2 from 'vue-sweetalert2';
+ 
+import 'sweetalert2/dist/sweetalert2.min.css';
+ 
+Vue.use(VueSweetalert2);
+
 Vue.use(BootstrapVue)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);

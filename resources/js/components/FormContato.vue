@@ -52,7 +52,11 @@
         axios.post('/contatos', this.form)
             .then((res) => {
                 this.$store.commit('addContato', res.data)
-                alert('Salvo com sucesso')
+                this.$swal({
+                    icon: 'sucess',
+                    title: 'Perfeito',
+                    text: 'Salvo com sucesso'
+                })
             })
             .catch((err) => {
                 alert('Erro ao salvar')

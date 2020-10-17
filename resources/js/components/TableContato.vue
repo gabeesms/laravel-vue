@@ -1,6 +1,10 @@
 <template>
   <div>
-    <b-table striped hover :items="contatos" :fields="cabecalhos"></b-table>
+    <b-table striped hover :items="contatos" :fields="cabecalhos">
+        <template v-slot:cell(acoes)="data">
+           <b-button variant="danger" size="sm" @click="alertExclusao(data.item.id)">Excluir</b-button>
+      </template>
+    </b-table>
   </div>
 </template>
 
@@ -29,6 +33,39 @@
       contatos () {
         return this.$store.state.contatos
       }
+    },
+    methods: {
+      alertExclusao (id) {
+        this.$swal.fire({
+          title: 'Deseja mesmo excluir este contato?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sim',
+          cancelButtonText: 'Não'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            this.excluir(id)
+        }
+      })
+    },
+    excluir(id) {
+      axios.delete('/contatos/' +id)
+        .then((res) => {
+          this.$store.commit(
+            "setContatos", this.$store.state.contatos.filter((contato) => contato.id !== id)
+        );
+          this.$swal({
+            icon: 'success',
+            title: 'Perfeito',
+            text: 'Excluído com sucesso'
+          })
+        })
+        .catch((err) => {
+
+        })
     }
   }
+}
 </script>

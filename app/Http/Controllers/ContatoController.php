@@ -47,14 +47,8 @@ class ContatoController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Contato  $contato
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Contato $contato)
     {
-        //
+        $contato->delete();
     }
 }
